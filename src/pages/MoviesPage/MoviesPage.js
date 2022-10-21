@@ -1,13 +1,13 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
 
 import {movieActions} from "../../redux/slices";
-import {MoviesList} from "../../components";
+import {MovieListCard, MoviesList} from "../../components";
 import css from './Pages.module.css'
 
+
 const MoviesPage = () => {
-    console.log('MoviePages')
 
     const {movies, loading} = useSelector(state => state.movies);
 
@@ -23,6 +23,7 @@ const MoviesPage = () => {
         dispatch(movieActions.getAll({page}))
 
     }, [page]);
+
 
     const prevPage = () => {
         const prev = +page - 1;
@@ -42,7 +43,14 @@ const MoviesPage = () => {
 
     return (
         <div className={css.moviePages}>
-            <MoviesList results={results}/>
+            <div className={css.movieList}>
+                {
+
+                    results?.map(movie => <MovieListCard key={movie.id} movie={movie}/>)
+                }
+             </div>
+
+
             {/*<div>*/}
                 <button onClick={prevPage}>Prev</button>
                 <button onClick={nextPage}>Next</button>

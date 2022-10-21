@@ -1,13 +1,12 @@
 import {NavLink} from "react-router-dom";
+
 import {getPoster} from "../../configs";
-
-
 import css from './MovieListCard.module.css'
-import {Bar, Foo} from "../StarsRating/StarRating";
+import StarRating from "../StarsRating/StarRating";
 
 const MovieListCard = ({movie}) => {
 
-    const {title,release_date,poster_path} = movie
+    const {title,release_date,poster_path,vote_average} = movie
 
     return(
 
@@ -21,11 +20,14 @@ const MovieListCard = ({movie}) => {
                         <h4>{title}</h4>
                         <p>{release_date}</p>
                         <div>
-                            <Foo/>
-                            <Bar/>
+                            <div> <StarRating
+                                width={25}
+                                defaultState={vote_average}
+                                height={30}
+                                maxValue={10}
+                                readOnly={true}
+                            /></div>
                         </div>
-
-
                     </div>
                 </div>
             </NavLink>
