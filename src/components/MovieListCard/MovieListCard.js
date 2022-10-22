@@ -6,7 +6,7 @@ import StarRating from "../StarsRating/StarRating";
 
 const MovieListCard = ({movie}) => {
 
-    const {title,release_date,poster_path,vote_average} = movie
+    const {title,release_date,poster_path,vote_average,genre_ids} = movie
 
     return(
 
@@ -18,7 +18,7 @@ const MovieListCard = ({movie}) => {
                     </div>
                     <div className={css.cardInfo}>
                         <h4>{title}</h4>
-                        <p>{release_date}</p>
+                        <p>{release_date}----{genre_ids}</p>
                         <div>
                             <div> <StarRating
                                 width={25}

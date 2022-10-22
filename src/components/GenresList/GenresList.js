@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {genreActions} from "../../redux/slices/genre.slice";
 
 
-import {GenrePage} from "../../pages/GenrePage/GenrePage";
+
 import {Link} from "react-router-dom";
 
 
@@ -49,6 +49,8 @@ const GenresList = () => {
                         {genres.genres?.map(genre =>
                             <MenuItem
                             value={genre}
+
+                            onClick={()=>dispatch()}
                             component={Link} to={'/genre/'+`${genre.id}`}
                             key={genre.id}
                             state={{...genre}}

@@ -9,9 +9,9 @@ const initialState = {
 
 const getAll = createAsyncThunk (
     'movieSlice/getAll',
-    async ({page},{rejectWithValue})=> {
+    async ({with_genres,page},{rejectWithValue})=> {
         try {
-            const {data} = await moviesService.getAll(page);
+            const {data} = await moviesService.getAll(with_genres, page);
             return data;
         }catch (e) {
             return rejectWithValue(e.response.data);
