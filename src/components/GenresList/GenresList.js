@@ -21,7 +21,7 @@ const GenresList = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(genreActions.getAll())
+        dispatch(genreActions.getGenre())
 
     }, []);
 
@@ -38,27 +38,27 @@ const GenresList = () => {
         <FormControl sx={{m: 2, minWidth: 250}} size="small">
             <InputLabel id="demo-select-small">Genres</InputLabel>
 
-                <Select
-                    displayEmpty={false}
-                    labelId="demo-select-small"
-                    id="demo-select-small"
-                    value={genre}
-                    label="Genre"
-                    onChange={handleChange}
-                >
-                        {genres.genres?.map(genre =>
-                            <MenuItem
-                            value={genre}
+            <Select
+                displayEmpty={false}
+                labelId="demo-select-small"
+                id="demo-select-small"
+                value={genre}
+                label="Genre"
+                onChange={handleChange}
+            >
+                {genres.genres?.map(genre =>
+                    <MenuItem
+                        value={genre}
+                        key={genre.id}
+                        state={{...genre}}
+                        onClick={()=>dispatch()}
+                        component={Link} to={'/genre/'+`${genre.id}`}
 
-                            onClick={()=>dispatch()}
-                            component={Link} to={'/genre/'+`${genre.id}`}
-                            key={genre.id}
-                            state={{...genre}}
-                            >
-                            {genre.name}
-                            </MenuItem>)}
+                    >
+                        {genre.name}
+                    </MenuItem>)}
 
-                </Select>
+            </Select>
 
         </FormControl>
     );

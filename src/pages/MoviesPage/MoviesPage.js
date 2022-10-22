@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {useParams, useSearchParams} from "react-router-dom";
+import {useLocation, useParams, useSearchParams} from "react-router-dom";
 
 import {movieActions} from "../../redux/slices";
 import {MovieListCard} from "../../components";
@@ -25,10 +25,14 @@ const MoviesPage = () => {
 
 
     useEffect(() => {
-        dispatch(movieActions.getAll({with_genres,page}))
+        dispatch(movieActions.getAll({page}))
+
+    }, [page]);
+
+    useEffect(() => {
+        dispatch(movieActions.getGenreID({with_genres,page}))
 
     }, [genreID,page]);
-
 
     const prevPage = () => {
         const prev = +page - 1;
@@ -52,12 +56,12 @@ const MoviesPage = () => {
                 {
                     results?.map(movie => <MovieListCard key={movie.id} movie={movie}/>)
                 }
-             </div>
+            </div>
 
 
             {/*<div>*/}
-                <button onClick={prevPage}>Prev</button>
-                <button onClick={nextPage}>Next</button>
+            <button onClick={prevPage}>Prev</button>
+            <button onClick={nextPage}>Next</button>
             {/*</div>*/}
 
 
