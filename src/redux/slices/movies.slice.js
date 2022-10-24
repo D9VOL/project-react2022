@@ -7,7 +7,6 @@ const initialState = {
     errors: null
 };
 
-
 const getAll = createAsyncThunk (
     'movieSlice/getAll',
     async ({page},{rejectWithValue})=> {
@@ -25,6 +24,18 @@ const getGenreID = createAsyncThunk (
     async ({with_genres,page},{rejectWithValue})=> {
         try {
             const {data} = await moviesService.getGenreID(with_genres, page);
+            return data;
+        }catch (e) {
+            return rejectWithValue(e.response.data);
+        }
+    }
+)
+
+const getSearch = createAsyncThunk (
+    'movieSlice/getSearch',
+    async ({value},{rejectWithValue})=> {
+        try {
+            const {data} = await moviesService.getSearch(value);
             return data;
         }catch (e) {
             return rejectWithValue(e.response.data);
@@ -54,6 +65,15 @@ const movieSlice = createSlice({
             .addCase(getGenreID.pending,(state,action)=> {
                 state.loading = true;
             })
+            .addCase(getSearch.fulfilled,(state,action)=>{
+                state.movies = action.payload;
+                state.errors = null;
+                state.loading = true;
+            })
+            .addCase(getSearch.pending,(state,action)=> {
+                state.loading = true;
+            })
+
             .addDefaultCase((state,action)=>{
                 const [pathElement] = action.type.split('/').splice(-1);
                 if (pathElement === 'reject'){
@@ -67,7 +87,8 @@ const {reducer: movieReducer} = movieSlice;
 
 const movieActions = {
     getAll,
-    getGenreID
+    getGenreID,
+    getSearch
 };
 
 export {

@@ -7,22 +7,22 @@ import {MovieListCard} from "../../components";
 import css from './Pages.module.css'
 
 
-
 const MoviesPage = () => {
-
-    const {movies, loading} = useSelector(state => state.movies);
-
-    const {results} = movies;
 
     const dispatch = useDispatch();
 
+    const {movies, loading} = useSelector(state => state.movies);
+
+    const {results} = movies
+
     const {id:genreID} = useParams();
 
-    let [query, setQuery] = useSearchParams({with_genres:`${genreID}`,page: '1'});
 
+    let [query, setQuery] = useSearchParams({with_genres:`${genreID}`,page: '1',query:''});
+
+    // (dispatch(movieActions.getSearch({value})))
     const page = query.get('page');
     const with_genres = query.get('with_genres');
-
 
     useEffect(() => {
         dispatch(movieActions.getAll({page}))
@@ -31,8 +31,8 @@ const MoviesPage = () => {
 
     useEffect(() => {
         dispatch(movieActions.getGenreID({with_genres,page}))
-
     }, [genreID,page]);
+
 
     const prevPage = () => {
         const prev = +page - 1;
@@ -51,6 +51,8 @@ const MoviesPage = () => {
 
     return (
         <div className={css.moviePages}>
+            <button onClick={prevPage}>Prev</button>
+            <button onClick={nextPage}>Next</button>
 
             <div className={css.movieList}>
                 {
@@ -58,11 +60,6 @@ const MoviesPage = () => {
                 }
             </div>
 
-
-            {/*<div>*/}
-            <button onClick={prevPage}>Prev</button>
-            <button onClick={nextPage}>Next</button>
-            {/*</div>*/}
 
 
         </div>

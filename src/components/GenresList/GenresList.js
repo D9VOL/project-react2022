@@ -8,25 +8,26 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {genreActions} from "../../redux/slices/genre.slice";
 
-
-
 import {Link} from "react-router-dom";
 
 
 
 const GenresList = () => {
 
-    const {genres, loading} = useSelector(state => state.genres);
+    const {genres} = useSelector(state => state.genres);
+
+    console.log(genres)
+    const [genre, setGenre] = useState('');
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(genreActions.getGenre())
 
-    }, []);
+    }, [genre]);
 
 
-    const [genre, setGenre] = useState('');
+
 
     const handleChange = (event: SelectChangeEvent) => {
 
@@ -47,11 +48,13 @@ const GenresList = () => {
                 onChange={handleChange}
             >
                 {genres.genres?.map(genre =>
+
                     <MenuItem
                         value={genre}
                         key={genre.id}
                         state={{...genre}}
                         onClick={()=>dispatch()}
+
                         component={Link} to={'/genre/'+`${genre.id}`}
 
                     >

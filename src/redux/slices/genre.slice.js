@@ -4,8 +4,7 @@ import {genreService} from "../../services";
 
 const initialState = {
     genres: [],
-    loading: false,
-    errors: null
+
 };
 
 const getGenre = createAsyncThunk (
@@ -20,8 +19,6 @@ const getGenre = createAsyncThunk (
     }
 )
 
-
-
 const genreSlice = createSlice({
     name: 'genreSlice',
     initialState,
@@ -33,16 +30,7 @@ const genreSlice = createSlice({
                 state.errors = null;
                 state.loading = true;
             })
-            .addCase(getGenre.pending,(state,action)=> {
-                state.loading = true;
-            })
-            .addDefaultCase((state,action)=>{
-                const [pathElement] = action.type.split('/').splice(-1);
-                if (pathElement === 'reject'){
-                    state.errors = action.payload;
-                    state.loading = false;
-                }
-            })
+
 });
 
 const {reducer: genreReducer} = genreSlice;

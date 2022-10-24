@@ -1,6 +1,11 @@
 .mainHeader{
     height: 100px;
-    background: orange;
+    background: gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 20px 5px rgba(0, 0, 0, 0.3);
+    border: black 1px solid;
 }
 
 

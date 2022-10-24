@@ -2,8 +2,6 @@ import {Navigate, Route, Routes} from "react-router-dom";
 
 import {MainLayout} from "./layout";
 import {MovieInfo, MoviesPage} from "./pages";
-import {GenrePage} from "./pages/GenrePage/GenrePage";
-
 
 function App() {
     console.log('APP');
